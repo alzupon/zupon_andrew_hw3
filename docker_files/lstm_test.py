@@ -62,7 +62,7 @@ for sentence in train_words:
         word2 = word.lower()
         kw.append(word2)
 
-'''Import dev file TO GUARANTEE ALL TAGS IN TESTING'''
+'''Import dev file''' 
 #collection = open(sys.argv[2], 'r')
 #collection = open("dev_all.txt", 'r')
 #collection = open("test_all.txt", 'r')
@@ -70,7 +70,7 @@ collection = open("bigtest_all.txt", 'r')
 dev_data = collection.read()
 collection.close()
 
-'''Prepare test data into a list of sentences'''
+'''Prepare dev data into a list of sentences'''
 dev_data = dev_data.split('\n')
 dev_data2 = []
 for item in dev_data:
@@ -150,7 +150,9 @@ for sentence in test_sent:
     test_words.append(sent_words)
     test_tags.append(sent_tags)
 
+
 all_tags = train_tags+dev_tags+test_tags
+
 
 '''indices for tags'''
 def tag_to_index(tagslist):
@@ -164,6 +166,7 @@ def tag_to_index(tagslist):
                 tag_dict[y] = i
                 i+=1
     return tag_dict
+
 
 # create indices for all tags
 #tags_index = tag_to_index(train_tags)
@@ -288,12 +291,14 @@ def test():
 
 ##### USE THIS TO TEST #####
 final_predictions = test()
-#for item in mistakes:
-    #print(item[0], "\t", item[1], "\t", item[2])
-print(type(mistakes))
+
+
+# if you want to print out the incorrect predictions, sorted by frequency
+'''
 counts = []
 for item in mistakes:
     counts.append(mistakes.count(item))
 count_dict = dict(zip(mistakes,counts))
 for key, value in sorted(count_dict.items(), key=lambda x: x[1]): 
     print("{} : {}".format(key, value))
+    '''
