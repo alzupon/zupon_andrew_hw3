@@ -6,7 +6,6 @@
 import numpy as np
 import pickle
 import sys
-from collections import Counter
 from tqdm import tqdm
 import dynet_config
 dynet_config.set(
@@ -296,5 +295,5 @@ counts = []
 for item in mistakes:
     counts.append(mistakes.count(item))
 count_dict = dict(zip(mistakes,counts))
-for item in count_dict:
-    print(item)
+for key, value in sorted(count_dict.items(), key=lambda x: x[1]): 
+    print("{} : {}".format(key, value))
