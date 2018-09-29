@@ -17,7 +17,7 @@ import dynet as dy
 ##### IMPORT DATA FILES #####
 '''Import training file'''
 #collection = open(sys.argv[1], 'r')
-collection = open("train_all.txt", 'r')
+collection = open("train.txt", 'r')
 training_data = collection.read()
 collection.close()
 
@@ -63,10 +63,8 @@ for sentence in train_words:
         kw.append(word2)
 
 '''Import dev file''' 
-#collection = open(sys.argv[2], 'r')
-#collection = open("dev_all.txt", 'r')
-#collection = open("test_all.txt", 'r')
-collection = open("bigtest_all.txt", 'r')
+collection = open("dev.txt", 'r')
+#collection = open("test.txt", 'r')
 dev_data = collection.read()
 collection.close()
 
@@ -108,9 +106,8 @@ for sentence in dev_sent:
 
 '''Import test file'''
 #collection = open(sys.argv[2], 'r')
-collection = open("dev_all.txt", 'r')
-#collection = open("test_all.txt", 'r')
-#collection = open("bigtest_all.txt", 'r')
+#collection = open("dev.txt", 'r')
+collection = open("test.txt", 'r')
 testing_data = collection.read()
 collection.close()
 
@@ -149,7 +146,6 @@ for sentence in test_sent:
         sent_tags.append(t)
     test_words.append(sent_words)
     test_tags.append(sent_tags)
-
 
 all_tags = train_tags+dev_tags+test_tags
 
@@ -294,6 +290,7 @@ final_predictions = test()
 
 
 # if you want to print out the incorrect predictions, sorted by frequency
+
 '''
 counts = []
 for item in mistakes:

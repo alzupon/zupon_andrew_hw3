@@ -17,7 +17,7 @@ import dynet as dy
 ##### IMPORT DATA FILES #####
 '''Import training file'''
 #collection = open(sys.argv[1], 'r')
-collection = open("train_all.txt", 'r')
+collection = open("train.txt", 'r')
 training_data = collection.read()
 collection.close()
 
@@ -61,11 +61,53 @@ for sentence in train_words:
     for word in sentence:
         word2 = word.lower()
         kw.append(word2)
-        kw.append(word)
+
+'''Import dev file''' 
+collection = open("dev.txt", 'r')
+#collection = open("test.txt", 'r')
+dev_data = collection.read()
+collection.close()
+
+'''Prepare dev data into a list of sentences'''
+dev_data = dev_data.split('\n')
+dev_data2 = []
+for item in dev_data:
+    item = item.split(' ')
+    dev_data2.append(item)
+dev_data3 = []
+for item in dev_data2:
+    temp = []
+    for x in item:
+        x = x.lower()
+        y = x.split("/")
+        temp.append(y)
+    dev_data3.append(temp)
+dev_sent = []
+for sentence in dev_data3:
+    stemp = [["<s>","<s>"]]
+    for item in sentence:
+        if len(item) >1:
+            stemp.append(item)
+        else:
+            continue
+    dev_sent.append(stemp)
+dev_words = []
+dev_tags = []
+for sentence in dev_sent:
+    sent_words = []
+    sent_tags = []
+    for item in sentence:
+        w = item[0]
+        t = item[-1]
+        sent_words.append(w)
+        sent_tags.append(t)
+    dev_words.append(sent_words)
+    dev_tags.append(sent_tags)
 
 '''Import test file'''
 #collection = open(sys.argv[2], 'r')
-collection = open("bigtest_all.txt", 'r')
+#collection = open("dev.txt", 'r')
+collection = open("test.txt", 'r')
 testing_data = collection.read()
 collection.close()
 
@@ -104,7 +146,9 @@ for sentence in test_sent:
         sent_tags.append(t)
     test_words.append(sent_words)
     test_tags.append(sent_tags)
-all_tags = train_tags+test_tags
+
+all_tags = train_tags+dev_tags+test_tags
+
 
 '''indices for tags'''
 def tag_to_index(tagslist):
@@ -119,11 +163,13 @@ def tag_to_index(tagslist):
                 i+=1
     return tag_dict
 
+
 # create indices for all tags
 #tags_index = tag_to_index(train_tags)
 tags_index = tag_to_index(all_tags)
 # link tags in training and testing data to indices
 train_tags = [[tags_index[t] for t in sentence] for sentence in train_tags]
+dev_tags = [[tags_index[t] for t in sentence] for sentence in dev_tags]
 test_tags = [[tags_index[t] for t in sentence] for sentence in test_tags]
 # create reverse to look up tags based on index
 index_tags = dict((v,k) for k,v in tags_index.items())
@@ -267,8 +313,7 @@ def train():
 epoch_preds = train()
 
 ##### S A V E  M O D E L #####
-LSTM_model.save("LSTM_model_baseline_30epochs")
-#LSTM_model.save("../LSTM_saved_model")
+LSTM_model.save("model_baseline")
 
 ##### USE THIS TO TEST #####
 #final_predictions = test()
