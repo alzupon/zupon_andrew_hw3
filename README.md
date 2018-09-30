@@ -12,7 +12,7 @@ Files in `docker_files` directory:
 # Installation
  From the repo directory, simply build the Docker container with the following command:
 
- `docker build -t zupon-csc585-hw3`
+ `docker build -t zupon-csc585-hw3 .`
 
 The Docker container adds all the relevant files, installs the needed dependencies `numpy`, `tqdm`, and `dynet`, and runs the code to test the model.
 
