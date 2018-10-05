@@ -1,6 +1,8 @@
 # What is it?
 This repository contains all the code for my CSC 585 HW 3 submission. It includes a Dockerfile to build the Docker container, this README file, and a directory containing files to train or test the model. The Scottish Gaelic data here comes from Lamb and Danso's Annotated Reference Corpus of Scottish Gaelic (ARCOSG). The code to train the LSTM and test the model were developed by me in Fall 2017, using a dyNet tutorial by Michael Capizzi as a starting point.
 
+This Docker container was built and tested on an Ubuntu Linux machine without a GPU.
+
 Files in `docker_files` directory:
 - `lstm_train.py`:  code to train the LSTM
 - `lstm_test.py`:  code to test the model
