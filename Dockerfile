@@ -10,5 +10,4 @@ ADD /docker_files ./
 RUN pip install numpy tqdm dynet
 
 # This is the command that will be run when you start the container
-#CMD [ "python", "./lstm_test.py" ]
 ENTRYPOINT [ "python" ]
